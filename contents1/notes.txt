@@ -1,0 +1,70 @@
+
+apt-get install python-setuptools python-pip
+pip install github3.py
+
+
+- socket
+AF_INET —> standard IPv4
+SOCK_STREAM —> TCP client
+SOCK_DGRAM —> UDP
+
+different. client.send(data) vs client.sendto(data, tupla)
+with send you already need to have stablish a connection I assume
+Also, recvfrom will give you the addres too.
+
+for the server, the action is not CONNECT but BIND + LISTEN + ACCEPT!
+And obviously the binding address is not an external one, it is 0.0.0.0
+
+
+NETCAT…………
+Netcat is a featured networking utility which reads and writes data across network connections, using the TCP/IP protocol.
+It is designed to be a reliable back-end tool that can be used directly or easy driven by other programs and scripts.
+It is a feature-rich network debugging and exploration tool, since it can create almost any kind of connection you would need and has several interesting build-in capabilities.
+
+
+opts, args = getopt.getopt(sys.argv[1:], "hle:t:p:cu:", ["help", "listen", "execute", "target", "port", "command", "upload"])
+
+
+Esto es una puta maravilla para validar la entrada!! :))))
+
+def getopt(args, shortopts, longopts = []):
+    """getopt(args, options[, long_options]) -> opts, args
+
+    Parses command line options and parameter list.  args is the
+    argument list to be parsed, without the leading reference to the
+    running program.  Typically, this means "sys.argv[1:]".  shortopts
+    is the string of option letters that the script wants to
+    recognize, with options that require an argument followed by a
+    colon (i.e., the same format that Unix getopt() uses).  If
+    specified, longopts is a list of strings with the names of the
+    long options which should be supported.  The leading '--'
+    characters should not be included in the option name.  Options
+    which require an argument should be followed by an equal sign
+    ('=').
+
+    The return value consists of two elements: the first is a list of
+    (option, value) pairs; the second is the list of program arguments
+    left after the option list was stripped (this is a trailing slice
+    of the first argument).  Each option-and-value pair returned has
+    the option as its first element, prefixed with a hyphen (e.g.,
+    '-x'), and the option argument as its second element, or an empty
+    string if the option has no argument.  The options occur in the
+    list in the same order in which they were found, thus allowing
+    multiple occurrences.  Long and short options may be mixed.
+
+    """
+
+
+if you are planning to send data interactively, you need to send a ctrl-d to bypass the stdin read
+
+The SUBPROCESS library: provides a powerful process-creation interface that gives you a number of ways to start and interact with client programs.
+In this case we are simply running whatever command we pass in, running it on the local operating system, and returning the output from the command back to the client that is connected to us.
+
+
+echo -ne “GET / HTTP/1.1\r\nHost: www.google.com\r\n\r\n” | python netcat.py -t www.google.com -p 80
+
+
+
+
+
+

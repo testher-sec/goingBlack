@@ -4,22 +4,47 @@ import threading
 
 
 def receive_from(socket):
-    pass
+
+    buffer = ""
+
+    # we set a 2 second timeout, depending on target this may need adjustment
+    socket.settimeout(2)
+
+    try:
+        # keep reading into the buffer until there is no more data or we timeout
+        while True:
+            data = socket.recv(4096)
+            if not data:
+                break
+            buffer += data
+    except:
+        pass # not too escited about this XD
+
+    return buffer
 
 
 # dump the content of the packet so we can inspect for anything interesting
-def hexdump(buffer):
-    pass
+# from http://code.activestate.com/recipes/142812-hex-dumper/
+# pfffff
+def hexdump(src, length=16):
+    result = []
+    digits = 4 if isinstance(src, unicode) else 2
+    for i in xrange(0, len(src), length): # start, stop, step
+        s = src[i:i + length]
+        hexa = b' '.join(["%0*X" % (digits, ord(x)) for x in s])
+        text = b''.join([x if 0x20 <= ord(x) < 0x7F else b'.' for x in s])
+        result.append(b"%04X   %-*s   %s" % (i, length * (digits + 1), hexa, text)) #%0 %2 tuple element
+    return b'\n'.join(result)
 
 
 # Modify the packet contents, perform fuzzing tasks, tests for authentication issues or whatever else your heart desires
-def response_handler(remote_buffer):
-    pass
+def response_handler(buffer):
+    return buffer
 
 
 # Modify the packet contents, perform fuzzing tasks, tests for authentication issues or whatever else your heart desires
 def request_handler(buffer):
-    pass
+    return buffer
 
 
 def proxy_handler(client_socket, remote_host, remote_port, receive_first):

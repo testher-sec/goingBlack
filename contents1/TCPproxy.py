@@ -17,7 +17,10 @@ def receive_from(socket):
             if not data:
                 break
             buffer += data
-    except:
+            if data < 4096:
+                break
+    except Exception as e:
+        # print "Error reading from socket ", e
         pass # not too escited about this XD
 
     return buffer
@@ -34,7 +37,7 @@ def hexdump(src, length=16):
         hexa = b' '.join(["%0*X" % (digits, ord(x)) for x in s])
         text = b''.join([x if 0x20 <= ord(x) < 0x7F else b'.' for x in s])
         result.append(b"%04X   %-*s   %s" % (i, length * (digits + 1), hexa, text)) #%0 %2 tuple element
-    return b'\n'.join(result)
+    print b'\n'.join(result)
 
 
 # Modify the packet contents, perform fuzzing tasks, tests for authentication issues or whatever else your heart desires
@@ -118,6 +121,7 @@ def proxy_handler(client_socket, remote_host, remote_port, receive_first):
 
 def server_loop(local_host, local_port, remote_host, remote_port, receive_first):
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # TCP IPv4
+    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     try:
         server.bind((local_host, local_port))
@@ -172,3 +176,13 @@ if __name__ == '__main__':
     # now spin up the listening socket
     # question. do we need all those parameters?
     server_loop(local_host, local_port, remote_host, remote_port, receive_first)
+
+
+'''
+Using
+127.0.0.1 2222 test.rebex.net 21 True
+Not using 21 for localhost as I want to debug and that port needs sudo.
+And I had enough sudo for pycharm with the smurf work
+test.rebex.net
+Username is "demo", password is "password"
+'''

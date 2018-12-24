@@ -64,7 +64,20 @@ In this case we are simply running whatever command we pass in, running it on th
 echo -ne “GET / HTTP/1.1\r\nHost: www.google.com\r\n\r\n” | python netcat.py -t www.google.com -p 80
 
 
+In paramiko there are two main communication methods: transport, which is responsible for making and maintaining the encrypted connection,
+and channel, which acts like a sock for sending and receiving data over the encrypted transport session.
 
+https://docs.python.org/2/library/select.html
+select.select (rlist, wlist, xlist[,timeout])
+this is a straightforward interface to the unix select system call. The first three arguments are sequences of ‘waitable objects’: either integers representing file descriptors or objects with a parameterless method named fileno() returning such an integer
+- rlist wait until ready for reading
+- wlist wait until ready for writting
+- xlist wait for an exceptional condition
 
+We are using this in a ‘tunnel’ when we dont know which one communicates after, we wait for both list to receive :D
 
+PARAMIKO:
+https://github.com/paramiko/paramiko
+http://docs.paramiko.org/en/2.4/api/channel.html
+https://github.com/paramiko/paramiko/blob/master/demos/rforward.py
 

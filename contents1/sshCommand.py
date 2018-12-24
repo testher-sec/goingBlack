@@ -1,7 +1,5 @@
 import paramiko
 
-
-# I think I've been doing so far the commits with a different wrong user :facepalm:
 def ssh_command(ip, user, password, command):
     client = paramiko.SSHClient()
     #client.load_host_keys('/home/evega/.ssh/known_hosts')

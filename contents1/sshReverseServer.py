@@ -4,7 +4,7 @@ import sys
 import socket
 
 #using the key from the paramiko demo files
-host_key = paramiko.RSAKey(filename='test_rsa.key')
+host_key = paramiko.RSAKey(filename='utils/test_rsa.key')
 
 
 class Server (paramiko.ServerInterface):
@@ -23,10 +23,10 @@ class Server (paramiko.ServerInterface):
 
 
 if __name__ == '__main__':
-    ssh_server = sys.argv[1]
+    ssh_server = sys.argv[1] # 127.0.0.1
     ssh_port = int(sys.argv[2])
     try:
-        server_socket = socket.sockt(socket.AF_INET, socket.SOCK_STREAM)
+        server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server_socket.bind((ssh_server, ssh_port))
         server_socket.listen(100)

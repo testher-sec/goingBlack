@@ -1,4 +1,4 @@
-import paramiko
+﻿import paramiko
 import threading
 import sys
 import socket
@@ -25,6 +25,8 @@ class Server (paramiko.ServerInterface):
 if __name__ == '__main__':
     ssh_server = sys.argv[1] # 127.0.0.1
     ssh_port = int(sys.argv[2])
+
+    paramiko.util.log_to_file("filename-serrver.log")
     try:
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -50,7 +52,7 @@ if __name__ == '__main__':
         chan = bhSession.accept(20)
         print '[+] Authenticated!'
         print chan.recv(1024) # first receive??? for the ClientConnected? or what??
-        chan.sen('Welcome to bh_ssh')
+        chan.send('Welcome to bh_ssh')
 
         while True:
             try:
@@ -71,6 +73,7 @@ if __name__ == '__main__':
         except:
             pass
         sys.exit(1)
+
 
 
 

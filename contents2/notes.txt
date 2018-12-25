@@ -17,4 +17,8 @@ PING pingus.tel.uva.es (157.88.129.91): 56 data bytes
 
 
 
+CTYPES: ctypes is a foreign function library for Python.
+It provides C compatible data types, and allows calling functions in DLLs or shared libraries.
+
+
 

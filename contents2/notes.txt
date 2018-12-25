@@ -1,0 +1,20 @@
+When you send a UDP datagram to a closed port on a host, that host typically sends back an ICMP message indicating that the port is unreachable.
+Ensure we aren't hitting an active UDP service
+Windows requires us to set some additional flags through a socket input/output control (IOCTL)
+(IOCTL: is a means for userspace programs to communicate with kernel mode components.)
+
+
+Windows will allow us to sniff all incoming packets regardless of protocol, whereas Linux forces us to specify that we are sniffing ICMP
+
+Promiscuous mode: requires administrative privileges on windows or root on Linux.
+
+evega@Esthers-MacBook-Pro contents2 (master) $ sudo python sniffer.py
+('E\x00@\x00\xff\xb3\x00\x005\x01\xa61\x9dX\x81[\xc0\xa8\x00h\x00\x00r\xa6\xf9\xc4\x00\x00\\""M\x00\x05*\x1d\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f !"#$%&\'()*+,-./01234567', ('157.88.129.91', 0))
+
+evega@Esthers-MacBook-Pro contents2 (master) $ ping www.tel.uva.es
+PING pingus.tel.uva.es (157.88.129.91): 56 data bytes
+64 bytes from 157.88.129.91: icmp_seq=0 ttl=53 time=18.299 ms
+
+
+
+

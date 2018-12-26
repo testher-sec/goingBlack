@@ -1,7 +1,7 @@
 import socket
 import os
 import struct
-from ctypes import Structure, c_ubyte, c_ushort, c_ulong
+from ctypes import Structure, c_ubyte, c_ushort, c_uint32
 
 '''
  0                   1                   2                   3
@@ -20,6 +20,16 @@ from ctypes import Structure, c_ubyte, c_ushort, c_ulong
 |                    Options                    |    Padding    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 '''
+'''
+https://stackoverflow.com/questions/29306747/python-sniffing-from-black-hat-python-book
+ctypes work different for 64 and 32 bits system
+>>﻿ValueError: Buffer size too small (20 instead of at least 32 bytes)
+c_ulong - The problem is with 32 vs 64 bit systems. ------> c_ulong is 4 bytes in i386 and 8 in amd64 <-----------------
+    ip_header = IP(raw_buffer[:20]) works on x86 Ubuntu.
+    ip_header = IP(raw_buffer[:32]) works on amd64 CentOS 6.6 Python 2.6.6
+    ip_header = IP(raw_buffer) works in both.
+Change c_ulong to c_uint32
+'''
 
 # host to listen on
 host = "192.168.0.104"
@@ -28,9 +38,9 @@ host = "192.168.0.104"
 # our IP header
 class IP(Structure):
 
-    # ubyte -> 8
-    # ushort -> 16
-    # ulong -> 32
+    # ubyte -> 1 (8)
+    # ushort -> 2 (16)
+    # ulong -> 4 (32)
     _fields_ = [
         ("ihl",             c_ubyte, 4),
         ("version",         c_ubyte, 4),
@@ -41,8 +51,8 @@ class IP(Structure):
         ("ttl",             c_ubyte),
         ("protocol_num",    c_ubyte),
         ("sum",             c_ushort),
-        ("src",             c_ulong),
-        ("dst",             c_ulong)
+        ("src",             c_uint32),
+        ("dst",             c_uint32),
     ]
 
     def __new__(self, socket_buffer=None):
@@ -94,3 +104,12 @@ except KeyboardInterrupt:
     # if we are using windows turn off promiscuous mode
     if os.name == "nt":
         sniffer.ioctl(socket.SIO_RCVALL, socket.RCVALL_OFF)
+
+'''
+Bravo! works! :))))
+/root/PycharmProjects/Ep2/venv/bin/python /root/PycharmProjects/Ep2/snifferIpHeaderDecode.py
+Sniffing
+Protocol: ICMP 157.88.129.91 -> 192.168.1.74
+Protocol: ICMP 157.88.129.91 -> 192.168.1.74
+Protocol: ICMP 157.88.129.91 -> 192.168.1.74
+'''

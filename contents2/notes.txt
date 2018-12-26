@@ -20,5 +20,14 @@ PING pingus.tel.uva.es (157.88.129.91): 56 data bytes
 CTYPES: ctypes is a foreign function library for Python.
 It provides C compatible data types, and allows calling functions in DLLs or shared libraries.
 
+The python module ctype is by far one of the most powerful libraries available to the Python developer.
+The ctyps library enables you to call functions in dynamically linked libraries and has extensive capabilities
+for creating complex C datatypes and utility functions for low-level memory manipulation.
 
+dynamic libraries: on windows these binaries are called dynamic link libraries (dll) and on linux they are called shared objects (so)
+
+Three ways to load dynamic libraries in ctypes:
+- cdll()
+- windll()
+- oledll()
 

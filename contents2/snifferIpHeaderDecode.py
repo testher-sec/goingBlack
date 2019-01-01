@@ -98,6 +98,8 @@ try:
         ip_header = IP(raw_buffer[0:20])
 
         #print out the protocol that was detected an d the hosts
+        # why are version and header declared in the wrong order?
+        #print "Protocol: %s %s -> %s (version %d ihl %d )" % (ip_header.protocol, ip_header.src_address, ip_header.dst_address, ip_header.version, ip_header.ihl)
         print "Protocol: %s %s -> %s" % (ip_header.protocol, ip_header.src_address, ip_header.dst_address)
 #handle CTRL-C
 except KeyboardInterrupt:

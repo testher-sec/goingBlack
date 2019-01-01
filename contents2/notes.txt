@@ -31,3 +31,7 @@ Three ways to load dynamic libraries in ctypes:
 - windll()
 - oledll()
 
+When a host sends one of these ICMP messages it actually includes the IP header of the originating message that generated the response.
+
+https://docs.python.org/2/library/struct.html
+

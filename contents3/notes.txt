@@ -1,1 +1,6 @@
 SCAPY:
+It was designed to work with Linux in mind, though latest version does support Windows.
+pip install scapy
+
+BPF filter: The Berkeley Packet Filter (BPF) provides a raw interface to data link layers,
+permitting raw link-layer packets to be sent and received

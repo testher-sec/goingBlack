@@ -48,6 +48,6 @@ def restore_target(gateway_ip, gateway_mac, target_ip, target_mac):
     print "[*] Restoring target..."
     # using a different method to send (from the one above to poison target)
     send(ARP(op=2, psrc=gateway_ip, pdst=target_ip, hwdst="ff:ff:ff:ff:ff:ff", hwsrc=gateway_mac), count=5)
-    send(ARP(op=2, psrc=target_ip, pdest=gateway_ip, hwdst="ff:ff:ff:ff:ff:ff", hwsrc=target_mac), count=5)
+    send(ARP(op=2, psrc=target_ip, pdst=gateway_ip, hwdst="ff:ff:ff:ff:ff:ff", hwsrc=target_mac), count=5)
     # signals the main thread to exit
     os.kill(os.getpid(), signal.SIGINT) # main? arent we restoring on the main thread?

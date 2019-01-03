@@ -1,8 +1,12 @@
+'''
+Before starting, remember to tell the local host that we can forward packets
+kali$ echo 1 > /proc/sys/net/ipv4/ip_forward
+mac$ sudo sysctl -w net.inet.ip.forwarding = 1
+'''
+
 from scapy.all import conf, wrpcap, sniff
-import os
 import sys
 import threading
-import signal
 from utils.arperHelper import get_mac, poison_target, restore_target
 
 interface = "eth0"

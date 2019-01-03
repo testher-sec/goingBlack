@@ -4,3 +4,9 @@ pip install scapy
 
 BPF filter: The Berkeley Packet Filter (BPF) provides a raw interface to data link layers,
 permitting raw link-layer packets to be sent and received
+
+ARP cache poisoning: we will convince a target machine that we have become its gateway,
+and we will also convince the gateway that in order to reach the target machine, all traffic has to go through us
+
+NOTES to myself: remember to add file __init__.py if I want to import another local module
+Python uses __init__.py to determine if a directory is a module.

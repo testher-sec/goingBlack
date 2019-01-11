@@ -36,7 +36,7 @@ class BruteParser(HTMLParser):
     # handle_endtag (self, tag)
     # handle_data (self, data)
     def handle_starttag(self, tag, attrs):
-        if tag == "input:":
+        if tag == "input":
             tag_name = None
             tag_value = None
             for name,value in attrs:

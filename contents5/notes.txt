@@ -24,3 +24,27 @@ To create extensions::::::::;;
 ----------- create new instance
 ::::::::::::::::::::::::::::::::::
 
+
+﻿root@kali:~/goingBlack/burp# java -XX:MaxPermSize=1G -jar burpsuite_community_v1.7.36.jar
+
+﻿root@kali:~/Downloads# cp jython-standalone-2.7.0.jar ../goingBlack/burp/jython-standalone-2.7.0.jar
+
+
+..............................
+
+bravo!:))))
+﻿0	0		200	false	false	4090
+1	2	'test	200	false	false	4091
+2	2	'test	200	false	false	4091
+3	2	t<script>alert('BHP!');</script>est	200	false	false	4121
+4	2	test	200	false	false	4090
+5	2	te<script>alert('BHP!');</script>st	200	false	false	4121
+6	2	tes<script>alert('BHP!');</script>t	200	false	false	4121
+7	2	test	200	false	false	4090
+8	2	t'est	200	false	false	4091
+9	2	'test	200	false	false	4091
+10	2	t'est	200	false	false	4091
+11	3	g<script>alert('BHP!');</script>o	200	false	false	4090
+12	3	<script>alert('BHP!');</script>go	200	false	false	4090
+13	3	'go	200	false	false	4090
+14	3	<script>alert('BHP!');</script>go	200	false	false	4090

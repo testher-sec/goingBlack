@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from burp import IBurpExtender
 from burp import IIntruderPayloadGeneratorFactory
 from burp import IIntruderPayloadGenerator
@@ -65,7 +68,7 @@ class BHPFuzzer(IIntruderPayloadGenerator):
             chunk_length = random.randint(len(payload[offset:]),len(payload)-1)
             repeater = random.randint(1,10)
 
-            for i in range(repeater)
+            for i in range(repeater):
                 payload += original_payload[offset:offset+chunk_length]
 
         # add the remaining bits of the payload

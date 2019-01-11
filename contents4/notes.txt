@@ -10,3 +10,6 @@ These facilities include basic redirect functionality, for instance if a 404 fil
 or for more advanced functions such as content password protection or image hot link prevention.
 
 Python Queue Objects, allow us to build a large thread-safe stack of items and have multiple threads
+
+In general, you'll deploy a spider such as the one included in burp suite, to crawl the target website
+in order to discover as much of the web application as possible.

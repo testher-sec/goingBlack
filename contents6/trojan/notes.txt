@@ -1,0 +1,4 @@
+Each module that you develop should expose a run function that takes a variable number of arguments
+This enables you to load each module the same way and leaves enough extensibility
+so that you can customize the configuration files to pass arguments to the module if you desire
+

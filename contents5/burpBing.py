@@ -10,6 +10,7 @@ import urllib
 import json
 import re # REGULAR EXPRESSIONS!!! :))
 import base64
+import threading
 
 
 
@@ -33,7 +34,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
 
     def bing_menu(self, event):
         # grab the details of what the user clicked
-        http_traffic = self.context.getSElectedMessages()
+        http_traffic = self.context.getSelectedMessages()
 
         print "%d requests highlighted" % len(http_traffic)
 
@@ -66,6 +67,11 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
     def bing_query(self, bing_query_string):
 
         print "Performing Bing search: %s" % bing_query_string
+
+        t = threading.Thread(target=self.__trigger_bing_query)
+        t.start()
+
+    def __trigger_bing_query(self, bing_query_string):
 
         # encode our query
         quoted_query = urllib.quote(bing_query_string)

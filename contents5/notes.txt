@@ -54,3 +54,12 @@ Microsoft Bing search engine has search capabilities that allwo you to query Bin
 Bing API
 https://www.bing.com/partners/developers
 
+﻿java.lang.RuntimeException: java.lang.RuntimeException: Extensions should not make HTTP requests in the Swing event dispatch thread
+        at burp.fz.a(Unknown Source)
+
+https://github.com/irsdl/BurpSuiteJSBeautifier/issues/12
+https://support.portswigger.net/customer/portal/questions/16190306-burp-extensions-using-makehttprequest
+
+http requests should not be triggered in the same thread that runs the ui, should be spawn in a separate thread
+
+

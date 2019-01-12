@@ -48,3 +48,9 @@ bravo!:))))
 12	3	<script>alert('BHP!');</script>go	200	false	false	4090
 13	3	'go	200	false	false	4090
 14	3	<script>alert('BHP!');</script>go	200	false	false	4090
+
+------------------------> Next
+Microsoft Bing search engine has search capabilities that allwo you to query Bing for all websites it finds on a single IP address
+Bing API
+https://www.bing.com/partners/developers
+

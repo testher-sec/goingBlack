@@ -4,7 +4,7 @@ from scapy.layers.inet import TCP
 from utils.pictureCarverHelper import get_http_headers, extract_image, face_detect
 
 pictures_directory = "/Users/evega/Pictures/"
-pcap_file = "bhp.pcap"
+pcap_file = "utils/bhp.pcap"
 
 def http_assembler(pcap_file):
     carved_images = 0

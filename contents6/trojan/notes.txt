@@ -4,3 +4,9 @@ so that you can customize the configuration files to pass arguments to the modul
 
 Each trojan that you deploy should have a unique identifier both so that you can sort out the retrieved data
 and so that you can control which trojan perform certain tasks
+
+When getting this error:
+  File "/Users/evega/.pyenv/versions/2.7.9/lib/python2.7/site-packages/github3/models.py", line 58, in __getattr__
+    raise AttributeError(attribute)
+AttributeError: recurse
+https://stackoverflow.com/questions/50571152/what-is-this-attributeerror-recurse-related-black-hat-python-chapter7-github-c

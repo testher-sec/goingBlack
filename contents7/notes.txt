@@ -1,0 +1,3 @@
+https://docs.python.org/2/library/ctypes.html
+
+Should I try to implement this for Linux / MAC once book is finished???? :))) I think so

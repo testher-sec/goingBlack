@@ -2,7 +2,7 @@
 under lib/site-packages rename crypto folder to Crypto
 '''
 
-import win32com
+import win32com.client
 import os
 import fnmatch
 
@@ -10,8 +10,8 @@ from utils.browserutils import wait_for_browser
 from utils.common import random_sleep
 from utils.cryptoutils import encrypt_post
 
-doc_type = ".doc"
-username = "jms@bughunter.ca"
+doc_type = ".docx"
+username = "jms@gmail.com"
 password = "justinBHP2014"
 
 
@@ -30,7 +30,7 @@ def login_to_tumblr(ie):
 
     # you can be presented with different home pages
     try:
-        if ie.Documentt.forms[0].id == "signup_form":
+        if ie.Document.forms[0].id == "signup_form":
             ie.Document.forms[0].submit()
         else:
             ie.Documents.forms[1].submit()
@@ -49,7 +49,16 @@ def login_to_tumblr(ie):
 def post_to_tumblr(ie,title,post):
     full_doc = ie.Document.all
 
+    # Seems the field names to be updated has changed, I need to navigate using Developers toos on it again to find new names
+    # until then, just printing here the values....
+    print title
+    print "***************"
+    print post
+    return
+
     for i in full_doc:
+        if i.id != "":
+            print i.id
         if i.id == "post_one":
             i.setAttribute("value", title)
             title_box = i

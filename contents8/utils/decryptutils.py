@@ -9,7 +9,9 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 
 def decrypt(encrypted):
-    private_key = "PASTEPRIVATEKEYHERE"
+    f = open('privatekeyfile.pem', 'rb')
+    private_key = f.read()
+    f.close()
 
     rsakey = RSA.importKey(private_key)
     rsakey = PKCS1_OAEP.new(rsakey)

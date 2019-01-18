@@ -6,19 +6,16 @@ import zlib
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 
-public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzxomotzRtkfd9Ut6FjZa" \
-             "03L/NQaPJ4P69Gxy2zVi8IEw94sBXJpxBXNBebm1TqhZsNQdTsbM8b8kg4kA+Kum" \
-             "sgsdRB3cNJhd1nV47CP+1SJsnn1UTWceq7/LiWHQH68+bPVkLg4HVhKDnKHX1ODP" \
-             "2fJ8vbaiba+gAvQZBDRgvcfeT972O8iMV7Yvl+InNI6hX/IwWbI2vPAMT/vcyi2z" \
-             "jygi9VUIc1Ri/XUk3mWVav27fX7cdcUIbFlotn5PGRecf3VV9MG+kAtOgRXSh0qC" \
-             "HENqV0ZLeuvWczvI1jE98vj0pawJ87n9eqwhqQUAjgS82vU97AIEWrITsEwR8ayT" \
-             "BQIDAQAB"
+f = open('utils/publickeyfile.pem', 'rb')
+public_key = f.read()
+f.close()
 
 # needs https://www.microsoft.com/en-us/download/details.aspx?id=44266
 # chunk_size = 256 is the maximum size for RSA encryption using pycrypto
 
 def encrypt_string(plaintext):
-    chunk_size = 256
+    chunk_size = 256 - 42 # leaving space for self._hashObj.digest_siz
+    global public_key
     print "Compressing: %d bytes" % len(plaintext)
     plaintext = zlib.compress(plaintext)
 

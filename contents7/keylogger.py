@@ -4,7 +4,7 @@ pyHook is for 32 bits, so testing this in the Windows 7 VM
 
 from ctypes import *
 import win32clipboard
-import pyHook
+import pyHook # could be using ctypes as in sandboxDetect script
 import pythoncom
 
 

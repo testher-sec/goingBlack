@@ -1,0 +1,2 @@
+IE COM automation has the wonderful benefit of using the Iexplore.exe process
+which is typically trusted and whitelisted to exfiltrate information out of a network

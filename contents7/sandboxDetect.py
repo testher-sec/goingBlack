@@ -67,7 +67,6 @@ def detect_sandbox():
     double_clicks = 0
     max_double_clicks = 10
     double_click_threshold = 0.250 # in seconds
-    double_click_threshold_msec = 250 # in milliseconds. we compare it with difference of times
     first_double_click = None
 
     #average_mousetime = 0
@@ -107,10 +106,9 @@ def detect_sandbox():
             if keystrokes >= max_keystrokes and double_clicks >= max_double_clicks and mouse_clicks >= max_mouse_clicks:
                 return
 
-        elif keypress_time is not None:
+        if keypress_time is not None:
             previous_timestamp = keypress_time
 
 
 detect_sandbox()
 print "We are ok! we didnt kill... :)"
-

@@ -1,0 +1,6 @@
+https://code.google.com/archive/p/volatility/downloads
+Volatility includes a plugin called imageinfo that attempts to determine which profile you should use against the target
+
+Windows stores local passwords in the SAM registry hive in a hashed format, and alongside this is the windows boot key stored in the system registry hive
+
+// Leaving this as a TODO. Will come back to Vulnerability Framework later on
